@@ -11,5 +11,6 @@
 
 @interface CardModel : NSObject
 @property (nonatomic, copy) NSString *text;
+@property (nonatomic) NSURL *url;
 @property(nonatomic)CardCellLayout *layout;
 @end

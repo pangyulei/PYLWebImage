@@ -19,6 +19,8 @@
 		44F84CBD221BB12600F31EDC /* PYLFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */; };
 		44F84CBE221BB12600F31EDC /* CADisplayLink+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */; };
 		44F84CC1221BB46F00F31EDC /* UIImageView+Web.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CC0221BB46F00F31EDC /* UIImageView+Web.m */; };
+		44FE9EA7221C171E00CD4176 /* PYLImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EA6221C171E00CD4176 /* PYLImageCache.m */; };
+		44FE9EAD221C370300CD4176 /* avatar_urls in Resources */ = {isa = PBXBuildFile; fileRef = 44FE9EAC221C370300CD4176 /* avatar_urls */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,9 @@
 		44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CADisplayLink+Safe.m"; sourceTree = "<group>"; };
 		44F84CBF221BB46F00F31EDC /* UIImageView+Web.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Web.h"; sourceTree = "<group>"; };
 		44F84CC0221BB46F00F31EDC /* UIImageView+Web.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Web.m"; sourceTree = "<group>"; };
+		44FE9EA5221C171E00CD4176 /* PYLImageCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYLImageCache.h; sourceTree = "<group>"; };
+		44FE9EA6221C171E00CD4176 /* PYLImageCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYLImageCache.m; sourceTree = "<group>"; };
+		44FE9EAC221C370300CD4176 /* avatar_urls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = avatar_urls; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,10 +81,13 @@
 		44346025221A2ED700F92DDE /* PYLTiled */ = {
 			isa = PBXGroup;
 			children = (
+				44FE9EAC221C370300CD4176 /* avatar_urls */,
 				44346026221A2ED700F92DDE /* AppDelegate.h */,
 				44346027221A2ED700F92DDE /* AppDelegate.m */,
 				44346029221A2ED700F92DDE /* ViewController.h */,
 				4434602A221A2ED700F92DDE /* ViewController.m */,
+				44FE9EA5221C171E00CD4176 /* PYLImageCache.h */,
+				44FE9EA6221C171E00CD4176 /* PYLImageCache.m */,
 				44F84C7D221B6CFC00F31EDC /* CardCell.h */,
 				44F84C7E221B6CFC00F31EDC /* CardCell.m */,
 				4474E83B221BBD3A00638ABA /* CardModel.h */,
@@ -161,6 +169,7 @@
 				44346033221A2ED800F92DDE /* LaunchScreen.storyboard in Resources */,
 				44346030221A2ED800F92DDE /* Assets.xcassets in Resources */,
 				4434602E221A2ED700F92DDE /* Main.storyboard in Resources */,
+				44FE9EAD221C370300CD4176 /* avatar_urls in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +182,7 @@
 			files = (
 				44F84CBD221BB12600F31EDC /* PYLFPSLabel.m in Sources */,
 				4474E83D221BBD3A00638ABA /* CardModel.m in Sources */,
+				44FE9EA7221C171E00CD4176 /* PYLImageCache.m in Sources */,
 				4434602B221A2ED700F92DDE /* ViewController.m in Sources */,
 				44E94CB4221BBE870083BD44 /* CardCellLayout.m in Sources */,
 				44346036221A2ED800F92DDE /* main.m in Sources */,

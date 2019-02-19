@@ -45,7 +45,7 @@
 //}
 
 - (void)configWithModel:(CardModel *)model {
-    [_avatar setWithUrl:[NSURL URLWithString:@"https://source.unsplash.com/random/50x50"]];
+    [_avatar setWithUrl:model.url];
     _avatar.frame = CGRectMake(16, 16, 50, 50);
     _label.frame = CGRectMake(82, 16, model.layout.textWidth, model.layout.textHeight);
     _label.text = model.text;

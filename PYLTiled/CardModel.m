@@ -13,6 +13,7 @@
 - (instancetype)init {
     self = [super init];
     self.text = [self randomText];
+    [self layout];
     return self;
 }
 
