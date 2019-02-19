@@ -13,6 +13,12 @@
 		44346030221A2ED800F92DDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4434602F221A2ED800F92DDE /* Assets.xcassets */; };
 		44346033221A2ED800F92DDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44346031221A2ED800F92DDE /* LaunchScreen.storyboard */; };
 		44346036221A2ED800F92DDE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 44346035221A2ED800F92DDE /* main.m */; };
+		4474E83D221BBD3A00638ABA /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474E83C221BBD3A00638ABA /* CardModel.m */; };
+		44E94CB4221BBE870083BD44 /* CardCellLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E94CB3221BBE870083BD44 /* CardCellLayout.m */; };
+		44F84C7F221B6CFC00F31EDC /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84C7E221B6CFC00F31EDC /* CardCell.m */; };
+		44F84CBD221BB12600F31EDC /* PYLFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */; };
+		44F84CBE221BB12600F31EDC /* CADisplayLink+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */; };
+		44F84CC1221BB46F00F31EDC /* UIImageView+Web.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CC0221BB46F00F31EDC /* UIImageView+Web.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,18 @@
 		44346032221A2ED800F92DDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44346034221A2ED800F92DDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44346035221A2ED800F92DDE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4474E83B221BBD3A00638ABA /* CardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardModel.h; sourceTree = "<group>"; };
+		4474E83C221BBD3A00638ABA /* CardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardModel.m; sourceTree = "<group>"; };
+		44E94CB2221BBE870083BD44 /* CardCellLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardCellLayout.h; sourceTree = "<group>"; };
+		44E94CB3221BBE870083BD44 /* CardCellLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardCellLayout.m; sourceTree = "<group>"; };
+		44F84C7D221B6CFC00F31EDC /* CardCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardCell.h; sourceTree = "<group>"; };
+		44F84C7E221B6CFC00F31EDC /* CardCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardCell.m; sourceTree = "<group>"; };
+		44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYLFPSLabel.m; sourceTree = "<group>"; };
+		44F84CBA221BB12600F31EDC /* CADisplayLink+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CADisplayLink+Safe.h"; sourceTree = "<group>"; };
+		44F84CBB221BB12600F31EDC /* PYLFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYLFPSLabel.h; sourceTree = "<group>"; };
+		44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CADisplayLink+Safe.m"; sourceTree = "<group>"; };
+		44F84CBF221BB46F00F31EDC /* UIImageView+Web.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Web.h"; sourceTree = "<group>"; };
+		44F84CC0221BB46F00F31EDC /* UIImageView+Web.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Web.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +80,18 @@
 				44346027221A2ED700F92DDE /* AppDelegate.m */,
 				44346029221A2ED700F92DDE /* ViewController.h */,
 				4434602A221A2ED700F92DDE /* ViewController.m */,
+				44F84C7D221B6CFC00F31EDC /* CardCell.h */,
+				44F84C7E221B6CFC00F31EDC /* CardCell.m */,
+				4474E83B221BBD3A00638ABA /* CardModel.h */,
+				4474E83C221BBD3A00638ABA /* CardModel.m */,
+				44E94CB2221BBE870083BD44 /* CardCellLayout.h */,
+				44E94CB3221BBE870083BD44 /* CardCellLayout.m */,
+				44F84CBA221BB12600F31EDC /* CADisplayLink+Safe.h */,
+				44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */,
+				44F84CBB221BB12600F31EDC /* PYLFPSLabel.h */,
+				44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */,
+				44F84CBF221BB46F00F31EDC /* UIImageView+Web.h */,
+				44F84CC0221BB46F00F31EDC /* UIImageView+Web.m */,
 				4434602C221A2ED700F92DDE /* Main.storyboard */,
 				4434602F221A2ED800F92DDE /* Assets.xcassets */,
 				44346031221A2ED800F92DDE /* LaunchScreen.storyboard */,
@@ -141,9 +171,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44F84CBD221BB12600F31EDC /* PYLFPSLabel.m in Sources */,
+				4474E83D221BBD3A00638ABA /* CardModel.m in Sources */,
 				4434602B221A2ED700F92DDE /* ViewController.m in Sources */,
+				44E94CB4221BBE870083BD44 /* CardCellLayout.m in Sources */,
 				44346036221A2ED800F92DDE /* main.m in Sources */,
+				44F84CBE221BB12600F31EDC /* CADisplayLink+Safe.m in Sources */,
+				44F84CC1221BB46F00F31EDC /* UIImageView+Web.m in Sources */,
 				44346028221A2ED700F92DDE /* AppDelegate.m in Sources */,
+				44F84C7F221B6CFC00F31EDC /* CardCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +256,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -273,7 +309,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -285,7 +321,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8YWGSV4T24;
 				INFOPLIST_FILE = PYLTiled/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -293,7 +331,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pangyulei.PYLTiled;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -301,7 +340,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8YWGSV4T24;
 				INFOPLIST_FILE = PYLTiled/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -309,7 +350,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pangyulei.PYLTiled;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
