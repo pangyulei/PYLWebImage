@@ -13,11 +13,13 @@
 #define Byte 1
 #define KB (1024*Byte)
 #define MB (1024*KB)
-#define DefaultMaxSize (50 * MB)
+#define DefaultMaxSize (1 * MB)
 
 @interface PYLImageMemoryCache ()
 @property(nonatomic) NSCache *cache;
 @property(nonatomic,assign) double currentBytes;
+@property(nonatomic) NSMutableArray<NSString*> *lruKeys;//最近使用的都在最后面，0开始的是最近没用的
+@property(nonatomic) NSMapTable<NSString*,UIImage*> *weakCache;
 @end
 @implementation PYLImageMemoryCache
 
@@ -27,46 +29,80 @@
     }
     if (image.pyl_bytes + _currentBytes > _maxBytes) {
         NSLog(@"超了图片保存到内存失败 max:%.2f cur:%.2f, img:%.2f", _maxBytes, _currentBytes, image.pyl_bytes);
-        //pang todo 删除内存中的东西
-        return;
+        //腾出足够空间
+        [self deleteUntilBytes:_maxBytes-image.pyl_bytes];
     }
     NSLog(@"成功保存到内存 %@", key);
     [_cache setObject:image forKey:key];
     _currentBytes += image.pyl_bytes;
+    [_lruKeys removeObject:key];
+    [_lruKeys addObject:key];
 }
 
 - (UIImage *)fetchImageForKey:(NSString *)key {
-    return [_cache objectForKey:key];
+    //更新 lru
+    [_lruKeys removeObject:key];
+    [_lruKeys addObject:key];
+    UIImage *image = [_cache objectForKey:key];
+    if (!image) {
+        //cache 里没有，尝试weakcache里有没有
+        image = [_weakCache objectForKey:key];
+        if (image) {
+            //恢复到 _cache 里
+            [self saveImage:image forKey:key];
+        }
+    }
+    return image;
 }
 
 - (instancetype)init {
     self = [super init];
-    _maxBytes = DefaultMaxSize;
-    _cache = [NSCache new];
-    _currentBytes = 0;
+    if (self) {
+        _maxBytes = DefaultMaxSize;
+        _cache = [NSCache new];
+        _currentBytes = 0;
+        _lruKeys = @[].mutableCopy;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memoryWarnning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+        _weakCache = [NSMapTable strongToWeakObjectsMapTable];
+    }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)memoryWarnning {
+    [self clear];
 }
 
 - (void)clear {
     _maxBytes = 0;
     _currentBytes = 0;
-    //pang todo 应该直接删除文件夹
+    [_cache removeAllObjects];
+    [_lruKeys removeAllObjects];
 }
 
-- (void)clearUntilBytes:(double)newMaxBytes {
-    _maxBytes = newMaxBytes;
-    if (_currentBytes > newMaxBytes) {
-        //pang todo 应该使用 LRU 算法
-        //更新 currentBytes
+- (void)deleteUntilBytes:(double)bytes {
+    if (bytes <= 0) {
+        [self clear];
+        return;
     }
+    //使用 LRU 算法
+    NSMutableArray *keysToDelete = @[].mutableCopy;
+    for (int i=0;i<_lruKeys.count && _currentBytes>bytes;i++) {
+        NSString *key = _lruKeys[i];
+        UIImage *image = [_cache objectForKey:key];
+        _currentBytes -= image.pyl_bytes;
+        [keysToDelete addObject:key];
+        [_cache removeObjectForKey:key];
+    }
+    [_lruKeys removeObjectsInArray:keysToDelete];
 }
 
 - (void)setMaxBytes:(double)maxBytes {
-    if (maxBytes <= 0) {
-        [self clear];
-    } else {
-        [self clearUntilBytes:maxBytes];
-    }
+    _maxBytes = maxBytes;
+    [self deleteUntilBytes:maxBytes];
 }
 
 @end

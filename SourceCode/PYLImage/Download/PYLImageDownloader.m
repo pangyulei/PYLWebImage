@@ -9,6 +9,7 @@
 #import "PYLImageDownloader.h"
 #import "PYLImageDownloadOperation.h"
 #import "PYLImageCache.h"
+#import "NSURL+MD5.h"
 
 @interface PYLImageDownloader () <NSMutableCopying, NSCopying>
 @property (nonatomic) NSOperationQueue *queue;
@@ -40,7 +41,7 @@
         return;
     }
     
-    UIImage *image = [[PYLImageCache shared] fetchImageForKey:url.absoluteString];
+    UIImage *image = [[PYLImageCache shared] fetchImageForKey:url.MD5];
     if (image) {
         cmpl(image);
         return;
@@ -50,7 +51,7 @@
     dispatch_barrier_async(_concurrentQueue, ^{
         __strong typeof(PYLImageDownloader) *strongself = weakself;
         //已经入队的就别下了
-        if ([strongself.urlOperationMap objectForKey:url.absoluteString]) {
+        if ([strongself.urlOperationMap objectForKey:url.MD5]) {
             return;
         }
         /*
@@ -60,18 +61,18 @@
          */
         
         PYLImageDownloadOperation *operation = [[PYLImageDownloadOperation alloc] initWithURL:url completion:^(UIImage *decompressedImage) {
-            [[PYLImageCache shared] saveImage:decompressedImage forKey:url.absoluteString];
+            [[PYLImageCache shared] saveImage:decompressedImage forKey:url.MD5];
             cmpl(decompressedImage);
         }];
         [strongself.queue addOperation:operation];
-        [strongself.urlOperationMap setObject:operation forKey:url.absoluteString];
+        [strongself.urlOperationMap setObject:operation forKey:url.MD5];
     });
 }
 
 - (void)cancelDownloadImageURL:(NSURL*)url {
     __block PYLImageDownloadOperation *operation;
     dispatch_sync(_concurrentQueue, ^{
-        operation = [self.urlOperationMap objectForKey:url.absoluteString];
+        operation = [self.urlOperationMap objectForKey:url.MD5];
     });
     [operation cancel];
 }

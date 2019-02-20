@@ -63,6 +63,11 @@
         image = [self.mem fetchImageForKey:key];
         if (image) {
             NSLog(@"从内存读取图片成功 %@", key);
+        } else {
+            image = [self.disk fetchImageForKey:key];
+            if (image) {
+                NSLog(@"从硬盘读取图片成功 %@", key);
+            }
         }
     });
     return image;

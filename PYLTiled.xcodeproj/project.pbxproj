@@ -27,6 +27,8 @@
 		44FE9EBC221CB44C00CD4176 /* PYLImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EBB221CB44C00CD4176 /* PYLImageDownloader.m */; };
 		44FE9EBF221CC1D600CD4176 /* PYLImageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EBE221CC1D600CD4176 /* PYLImageDownloadOperation.m */; };
 		44FE9EC4221CD2A800CD4176 /* PYLCancelableOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EC3221CD2A800CD4176 /* PYLCancelableOperation.m */; };
+		44FE9EC8221D477E00CD4176 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EC7221D477E00CD4176 /* NSString+MD5.m */; };
+		44FE9ECB221D4B3C00CD4176 /* NSURL+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9ECA221D4B3C00CD4176 /* NSURL+MD5.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +69,10 @@
 		44FE9EBE221CC1D600CD4176 /* PYLImageDownloadOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYLImageDownloadOperation.m; sourceTree = "<group>"; };
 		44FE9EC2221CD2A800CD4176 /* PYLCancelableOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYLCancelableOperation.h; sourceTree = "<group>"; };
 		44FE9EC3221CD2A800CD4176 /* PYLCancelableOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYLCancelableOperation.m; sourceTree = "<group>"; };
+		44FE9EC6221D477E00CD4176 /* NSString+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		44FE9EC7221D477E00CD4176 /* NSString+MD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		44FE9EC9221D4B3C00CD4176 /* NSURL+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+MD5.h"; sourceTree = "<group>"; };
+		44FE9ECA221D4B3C00CD4176 /* NSURL+MD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+MD5.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,10 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				44FE9EB2221C3B0F00CD4176 /* PYLImage */,
-				44F84CBA221BB12600F31EDC /* CADisplayLink+Safe.h */,
-				44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */,
-				44F84CBB221BB12600F31EDC /* PYLFPSLabel.h */,
-				44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */,
+				44FE9EC5221CE19300CD4176 /* Monitor */,
 			);
 			path = SourceCode;
 			sourceTree = "<group>";
@@ -141,6 +144,10 @@
 				44F84CC0221BB46F00F31EDC /* UIImageView+PYL.m */,
 				44FE9EB7221C4B8F00CD4176 /* UIImage+PYL.h */,
 				44FE9EB8221C4B8F00CD4176 /* UIImage+PYL.m */,
+				44FE9EC6221D477E00CD4176 /* NSString+MD5.h */,
+				44FE9EC7221D477E00CD4176 /* NSString+MD5.m */,
+				44FE9EC9221D4B3C00CD4176 /* NSURL+MD5.h */,
+				44FE9ECA221D4B3C00CD4176 /* NSURL+MD5.m */,
 			);
 			path = PYLImage;
 			sourceTree = "<group>";
@@ -169,6 +176,17 @@
 				44FE9EC3221CD2A800CD4176 /* PYLCancelableOperation.m */,
 			);
 			path = Download;
+			sourceTree = "<group>";
+		};
+		44FE9EC5221CE19300CD4176 /* Monitor */ = {
+			isa = PBXGroup;
+			children = (
+				44F84CBA221BB12600F31EDC /* CADisplayLink+Safe.h */,
+				44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */,
+				44F84CBB221BB12600F31EDC /* PYLFPSLabel.h */,
+				44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */,
+			);
+			path = Monitor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,7 +263,9 @@
 				44FE9EB9221C4B8F00CD4176 /* UIImage+PYL.m in Sources */,
 				44F84CBD221BB12600F31EDC /* PYLFPSLabel.m in Sources */,
 				4474E83D221BBD3A00638ABA /* CardModel.m in Sources */,
+				44FE9ECB221D4B3C00CD4176 /* NSURL+MD5.m in Sources */,
 				44FE9EC4221CD2A800CD4176 /* PYLCancelableOperation.m in Sources */,
+				44FE9EC8221D477E00CD4176 /* NSString+MD5.m in Sources */,
 				44FE9EA7221C171E00CD4176 /* PYLImageCache.m in Sources */,
 				4434602B221A2ED700F92DDE /* ViewController.m in Sources */,
 				44E94CB4221BBE870083BD44 /* CardCellLayout.m in Sources */,

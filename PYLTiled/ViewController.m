@@ -13,6 +13,7 @@
 #import "CardCellLayout.h"
 #import <pthread.h>
 #import "PYLImageDownloader.h"
+#import "PYLImageDownloader.h"
 
 @interface ViewController () <UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic) UITableView *tb;
@@ -70,8 +71,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
-    CardModel *model = _models[indexPath.item];
-    [[PYLImageDownloader shared] cancelDownloadImageURL:model.url];
+//    NSArray *indexPaths = [tableView indexPathsForVisibleRows];
+//    NSIndexPath *first = indexPaths.firstObject;
+//    NSIndexPath *last = indexPaths.lastObject;
+//
+//    //预加载前后5个
+//    CardModel *model = _models[indexPath.item];
+//    [[PYLImageDownloader shared] cancelDownloadImageURL:model.url];
 }
 
 //- (void)fetchAvatarUrls {

@@ -11,6 +11,7 @@
 @interface PYLImageDiskCache : NSObject
 @property(nonatomic,assign) double maxBytes; //默认 50mb
 - (void)clear;
-- (void)clearUntilBytes:(double)newMaxBytes;
+- (void)deleteUntilBytes:(double)bytes;
 - (void)saveImage:(UIImage *)image forKey:(NSString *)key;
+- (UIImage *)fetchImageForKey:(NSString *)key;
 @end
