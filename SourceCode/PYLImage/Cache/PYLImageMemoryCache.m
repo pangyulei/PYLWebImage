@@ -13,7 +13,7 @@
 #define Byte 1
 #define KB (1024*Byte)
 #define MB (1024*KB)
-#define DefaultMaxSize (1 * MB)
+#define DefaultMaxSize (20 * MB)
 
 @interface PYLImageMemoryCache ()
 @property(nonatomic) NSCache *cache;
@@ -28,11 +28,9 @@
         return;
     }
     if (image.pyl_bytes + _currentBytes > _maxBytes) {
-        NSLog(@"超了图片保存到内存失败 max:%.2f cur:%.2f, img:%.2f", _maxBytes, _currentBytes, image.pyl_bytes);
         //腾出足够空间
         [self deleteUntilBytes:_maxBytes-image.pyl_bytes];
     }
-    NSLog(@"成功保存到内存 %@", key);
     [_cache setObject:image forKey:key];
     _currentBytes += image.pyl_bytes;
     [_lruKeys removeObject:key];

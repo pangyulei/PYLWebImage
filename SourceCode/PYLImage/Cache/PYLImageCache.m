@@ -67,6 +67,7 @@
             image = [self.disk fetchImageForKey:key];
             if (image) {
                 NSLog(@"从硬盘读取图片成功 %@", key);
+                [self.mem saveImage:image forKey:key];
             }
         }
     });

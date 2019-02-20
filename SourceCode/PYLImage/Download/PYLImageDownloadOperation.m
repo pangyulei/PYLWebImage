@@ -23,10 +23,11 @@
         NSError *error;
         NSData *data = [NSData dataWithContentsOfURL:url options:NSDataReadingMappedIfSafe error:&error];
         if (error) {
-            NSLog(@"download error %@", error);
+            NSLog(@"%@", error.description);
             return;
         }
         if ([strongself isCancelled]) {
+            NSLog(@"取消成功");
             return;
         }
         //解压
@@ -35,6 +36,8 @@
         
         if (![strongself isCancelled]) {
             completion(image);
+        } else {
+            NSLog(@"取消成功");
         }
     };
     return self;

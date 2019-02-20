@@ -13,11 +13,11 @@
 #define Byte 1
 #define KB (1024*Byte)
 #define MB (1024*KB)
-#define DefaultMaxSize (1 * MB)
+#define DefaultMaxSize (20 * MB)
 
 @interface PYLImageDiskCache ()
 @property(nonatomic,assign) double currentBytes;
-@property(nonatomic) NSMutableArray<NSString*> *lruKeys;//最近使用的都在最后面，0开始的是最近没用的
+//@property(nonatomic) NSMutableArray<NSString*> *lruKeys;//最近使用的都在最后面，0开始的是最近没用的
 @end
 
 @implementation PYLImageDiskCache
@@ -26,8 +26,7 @@
     self = [super init];
     if (self) {
         _maxBytes = DefaultMaxSize;
-        _currentBytes = 0;
-        _lruKeys = @[].mutableCopy;
+        _currentBytes = [self countSize];
         NSFileManager *fm = [NSFileManager defaultManager];
         NSString *dirPath = [self dirPath];
         if (![fm fileExistsAtPath:dirPath]) {
@@ -40,10 +39,22 @@
     return self;
 }
 
+- (double)countSize {
+    NSURL *dir = [NSURL URLWithString:[self dirPath]];
+    NSArray *resourceKeys = @[NSURLTotalFileAllocatedSizeKey];
+    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtURL:dir includingPropertiesForKeys:resourceKeys options:NSDirectoryEnumerationSkipsHiddenFiles errorHandler:nil];
+    double size = 0;
+    for (NSURL *url in enumerator) {
+        NSDictionary *dict = [url resourceValuesForKeys:resourceKeys error:nil];
+        size += [dict[NSURLTotalFileAllocatedSizeKey] doubleValue];
+    }
+    return size;
+}
+
 - (void)clear {
     _maxBytes = 0;
     _currentBytes = 0;
-    [_lruKeys removeAllObjects];
+//    [_lruKeys removeAllObjects];
 }
 
 - (void)deleteUntilBytes:(double)bytes {
@@ -55,23 +66,31 @@
     NSURL *dir = [NSURL URLWithString:[self dirPath]];
     NSArray *resourceKeys = @[NSURLTotalFileAllocatedSizeKey,NSURLContentAccessDateKey];
     NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtURL:dir includingPropertiesForKeys:resourceKeys options:NSDirectoryEnumerationSkipsHiddenFiles errorHandler:nil];
-    NSMutableDictionary *infos = @{}.mutableCopy;
+    NSMutableArray *files = @[].mutableCopy;
+    NSString *namekey = @"name";
     for (NSURL *url in enumerator) {
-        NSDictionary *dict = [url resourceValuesForKeys:resourceKeys error:nil];
-        infos[url.lastPathComponent] = dict;
+        NSMutableDictionary *dict = [[url resourceValuesForKeys:resourceKeys error:nil] mutableCopy];
+        dict[namekey] = url.lastPathComponent;
+        [files addObject:dict];
     }
-    NSMutableArray *keysToDelete = @[].mutableCopy;
-    for (int i=0;i<_lruKeys.count && _currentBytes>bytes;i++) {
-        NSString *key = _lruKeys[i];
-        NSDictionary *dict = infos[key];
+    files = [[files sortedArrayUsingComparator:^NSComparisonResult(NSDictionary* obj1, NSDictionary* obj2) {
+        NSDate *date1 = obj1[NSURLContentAccessDateKey];
+        NSDate *date2 = obj2[NSURLContentAccessDateKey];
+        if ([date2 timeIntervalSinceDate:date1] >= 0) {
+            //obj2 比 obj1 更晚访问, obj2 应该排在后面
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedDescending;
+        }
+    }] mutableCopy];
+    for (NSDictionary *dict in files) {
         unsigned long long size = [dict[NSURLTotalFileAllocatedSizeKey] unsignedLongLongValue];
         _currentBytes -= size;
+        NSString *key = dict[namekey];
         NSString *filepath = [[self dirPath] stringByAppendingPathComponent:key];
         NSError *error;
         NSAssert([[NSFileManager defaultManager] removeItemAtPath:filepath error:&error], [error description]);
-        [keysToDelete addObject:key];
     }
-    [_lruKeys removeObjectsInArray:keysToDelete];
 }
 
 - (void)setMaxBytes:(double)maxBytes {
@@ -93,17 +112,16 @@
     NSError *error;
     NSAssert([data writeToFile:filepath options:NSDataWritingAtomic error:&error], error.localizedDescription);
     _currentBytes += image.pyl_bytes;
-    [_lruKeys removeObject:key];
-    [_lruKeys addObject:key];
-    NSLog(@"成功保存到硬盘");
+//    [_lruKeys removeObject:key];
+//    [_lruKeys addObject:key];
 }
 
 - (UIImage *)fetchImageForKey:(NSString *)key {
     NSString *filepath = [[self dirPath] stringByAppendingPathComponent:key];
     NSData *data = [NSData dataWithContentsOfFile:filepath];
     UIImage *image = [UIImage imageWithData:data];
-    [_lruKeys removeObject:key];
-    [_lruKeys addObject:key];
+//    [_lruKeys removeObject:key];
+//    [_lruKeys addObject:key];
     return image;
 }
 

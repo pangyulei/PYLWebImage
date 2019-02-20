@@ -36,7 +36,6 @@
             [self _setExecute:NO];
             return;
         }
-        //        NSLog(@"thread: %@", [NSThread currentThread]);
         
         self.executeBlock(self);
         
@@ -68,10 +67,6 @@
 
 - (BOOL)isExecuting {
     return _execute;
-}
-
-- (void)dealloc {
-    NSLog(@"cancelable operation 销毁");
 }
 
 @end
