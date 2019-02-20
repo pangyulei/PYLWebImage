@@ -8,6 +8,7 @@
 
 #import "PYLImageDownloader.h"
 #import "PYLImageDownloadOperation.h"
+#import "PYLImageCache.h"
 
 @interface PYLImageDownloader () <NSMutableCopying, NSCopying>
 @property (nonatomic) NSOperationQueue *queue;
@@ -38,16 +39,30 @@
     if (!url.absoluteString.length || !cmpl) {
         return;
     }
+    
+    UIImage *image = [[PYLImageCache shared] fetchImageForKey:url.absoluteString];
+    if (image) {
+        cmpl(image);
+        return;
+    }
+    
     __weak typeof(PYLImageDownloader) *weakself = self;
     dispatch_barrier_async(_concurrentQueue, ^{
         __strong typeof(PYLImageDownloader) *strongself = weakself;
+        //已经入队的就别下了
+        if ([strongself.urlOperationMap objectForKey:url.absoluteString]) {
+            return;
+        }
         /*
          使用 operation queue 是线程安全的
          https://developer.apple.com/documentation/foundation/nsoperationqueue
          这里是为了给 urlOperationMap 上锁
          */
         
-        PYLImageDownloadOperation *operation = [[PYLImageDownloadOperation alloc] initWithURL:url completion:cmpl];
+        PYLImageDownloadOperation *operation = [[PYLImageDownloadOperation alloc] initWithURL:url completion:^(UIImage *decompressedImage) {
+            [[PYLImageCache shared] saveImage:decompressedImage forKey:url.absoluteString];
+            cmpl(decompressedImage);
+        }];
         [strongself.queue addOperation:operation];
         [strongself.urlOperationMap setObject:operation forKey:url.absoluteString];
     });
