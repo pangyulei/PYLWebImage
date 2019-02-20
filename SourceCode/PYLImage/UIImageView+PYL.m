@@ -18,14 +18,13 @@
         return;
     }
     
-    char *key = "last_url";
-    NSString *lastURL = objc_getAssociatedObject(self, key);
-    if (lastURL.length && ![lastURL isEqualToString:url.absoluteString]) {
-        [[PYLImageDownloader shared] cancelDownloadImageURL:[NSURL URLWithString:lastURL]];
+    //快速滑动，取消之前未完成的下载
+    NSURL *lastImageURL = [self pyl_lastImageURL];
+    if (lastImageURL && ![lastImageURL.absoluteString isEqualToString:url.absoluteString]) {
+        [[PYLImageDownloader shared] cancelDownloadImageURL:lastImageURL];
     }
-    objc_setAssociatedObject(self, key, url.absoluteString, OBJC_ASSOCIATION_COPY_NONATOMIC);
     
-    self.image = nil;
+    self.image = placeholder;
     [[PYLImageDownloader shared] downloadImageURL:url completion:^(UIImage *decompressedImage) {
         if (decompressedImage) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -33,6 +32,19 @@
             });
         }
     }];
+}
+
+- (NSURL *)pyl_lastImageURL {
+    NSString *a = objc_getAssociatedObject(self, _cmd);
+    if (a.length) {
+        return [NSURL URLWithString:a];
+    } else {
+        return nil;
+    }
+}
+
+- (void)setPyl_lastImageURL:(NSURL*)url {
+    objc_setAssociatedObject(self, @selector(pyl_lastImageURL), url.absoluteString, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 @end
