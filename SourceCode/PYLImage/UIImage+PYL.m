@@ -11,16 +11,6 @@
 
 @implementation UIImage (PYL)
 
-- (double)pyl_bytes {
-    NSNumber *bytes = objc_getAssociatedObject(self, _cmd);
-    if (!bytes) {
-        NSData *data = UIImageJPEGRepresentation(self, 1);
-        bytes = @(data.length);
-        objc_setAssociatedObject(self, _cmd, bytes, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return bytes.doubleValue;
-}
-
 - (UIImage *)decompress {
     //解压
     UIGraphicsBeginImageContext(self.size);

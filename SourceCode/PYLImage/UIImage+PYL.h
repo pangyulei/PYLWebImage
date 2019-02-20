@@ -10,7 +10,6 @@
 
 @interface UIImage (PYL)
 
-- (double)pyl_bytes;
 - (UIImage*)decompress;
 
 @end

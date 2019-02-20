@@ -13,10 +13,9 @@
 #define Byte 1
 #define KB (1024*Byte)
 #define MB (1024*KB)
-#define DefaultMaxSize (20 * MB)
+#define DefaultMaxSize (10 * MB)
 
 @interface PYLImageDiskCache ()
-@property(nonatomic,assign) double currentBytes;
 @end
 
 @implementation PYLImageDiskCache
@@ -25,7 +24,6 @@
     self = [super init];
     if (self) {
         _maxBytes = DefaultMaxSize;
-        _currentBytes = [self countSize];
         NSFileManager *fm = [NSFileManager defaultManager];
         NSString *dirPath = [self dirPath];
         if (![fm fileExistsAtPath:dirPath]) {
@@ -34,27 +32,28 @@
                 NSAssert(false, [e description]);
             }
         }
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willTerminate) name:UIApplicationWillTerminateNotification object:nil];
     }
     return self;
 }
 
-- (double)countSize {
-    NSURL *dir = [NSURL URLWithString:[self dirPath]];
-    NSArray *resourceKeys = @[NSURLTotalFileAllocatedSizeKey];
-    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtURL:dir includingPropertiesForKeys:resourceKeys options:NSDirectoryEnumerationSkipsHiddenFiles errorHandler:nil];
-    double size = 0;
-    for (NSURL *url in enumerator) {
-        NSDictionary *dict = [url resourceValuesForKeys:resourceKeys error:nil];
-        size += [dict[NSURLTotalFileAllocatedSizeKey] doubleValue];
-    }
-    return size;
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)willTerminate {
+    [self deleteUntilBytes:_maxBytes];
 }
 
 - (void)clear {
     _maxBytes = 0;
-    _currentBytes = 0;
     NSError *error;
-    NSAssert([[NSFileManager defaultManager] removeItemAtPath:[self dirPath] error:nil], error.description);
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *dirPath = [self dirPath];
+    if ([fm fileExistsAtPath:dirPath]) {
+        NSAssert([fm removeItemAtPath:[self dirPath] error:nil], error.description);
+        NSAssert([fm createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:&error], error.description);
+    }
 }
 
 - (void)deleteUntilBytes:(double)bytes {
@@ -68,10 +67,15 @@
     NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtURL:dir includingPropertiesForKeys:resourceKeys options:NSDirectoryEnumerationSkipsHiddenFiles errorHandler:nil];
     NSMutableArray *files = @[].mutableCopy;
     NSString *namekey = @"name";
+    double currentBytes = 0;
     for (NSURL *url in enumerator) {
         NSMutableDictionary *dict = [[url resourceValuesForKeys:resourceKeys error:nil] mutableCopy];
         dict[namekey] = url.lastPathComponent;
+        currentBytes += [dict[NSURLTotalFileAllocatedSizeKey] doubleValue];
         [files addObject:dict];
+    }
+    if (currentBytes<bytes) {
+        return;
     }
     files = [[files sortedArrayUsingComparator:^NSComparisonResult(NSDictionary* obj1, NSDictionary* obj2) {
         NSDate *date1 = obj1[NSURLContentAccessDateKey];
@@ -84,12 +88,14 @@
         }
     }] mutableCopy];
     for (NSDictionary *dict in files) {
-        unsigned long long size = [dict[NSURLTotalFileAllocatedSizeKey] unsignedLongLongValue];
-        _currentBytes -= size;
+        if (currentBytes < bytes) {
+            break;
+        }
         NSString *key = dict[namekey];
         NSString *filepath = [[self dirPath] stringByAppendingPathComponent:key];
         NSError *error;
         NSAssert([[NSFileManager defaultManager] removeItemAtPath:filepath error:&error], [error description]);
+        currentBytes -= [dict[NSURLTotalFileAllocatedSizeKey] doubleValue];
     }
 }
 
@@ -99,10 +105,6 @@
 }
 
 - (void)saveImage:(UIImage *)image forKey:(NSString *)key {
-    if (image.pyl_bytes+_currentBytes>_maxBytes) {
-        //腾出足够空间
-        [self deleteUntilBytes:_maxBytes-image.pyl_bytes];
-    }
     NSString *filepath = [[self dirPath] stringByAppendingPathComponent:key];
     NSFileManager *fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:filepath]) {
@@ -111,7 +113,6 @@
     NSData *data = UIImageJPEGRepresentation(image, 1);
     NSError *error;
     NSAssert([data writeToFile:filepath options:NSDataWritingAtomic error:&error], error.localizedDescription);
-    _currentBytes += image.pyl_bytes;
 }
 
 - (UIImage *)fetchImageForKey:(NSString *)key {
