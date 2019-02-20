@@ -10,8 +10,10 @@
 #import <UIKit/UIKit.h>
 
 #define Byte 1
-#define MB (1024*Byte)
+#define KB (1024*Byte)
+#define MB (1024*KB)
 #define DefaultMaxSize (50 * MB)
+
 @implementation PYLImageDiskCache
 
 - (instancetype)init {

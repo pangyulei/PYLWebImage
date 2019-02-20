@@ -11,7 +11,8 @@
 #import "UIImage+PYL.h"
 
 #define Byte 1
-#define MB (1024*Byte)
+#define KB (1024*Byte)
+#define MB (1024*KB)
 #define DefaultMaxSize (50 * MB)
 
 @interface PYLImageMemoryCache ()
@@ -25,7 +26,7 @@
         return;
     }
     if (image.pyl_bytes + _currentBytes > _maxBytes) {
-        NSLog(@"图片保存到内存失败，因为超了 %@", key);
+        NSLog(@"超了图片保存到内存失败 max:%.2f cur:%.2f, img:%.2f", _maxBytes, _currentBytes, image.pyl_bytes);
         //pang todo 删除内存中的东西
         return;
     }
