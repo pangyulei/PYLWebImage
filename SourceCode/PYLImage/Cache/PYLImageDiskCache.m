@@ -100,7 +100,7 @@
     NSString *filepath = [[self dirPath] stringByAppendingPathComponent:key];
     NSData *data = [NSData dataWithContentsOfFile:filepath];
     UIImage *image = [UIImage imageWithData:data];
-    return image;
+    return image.decompress;
 }
 
 - (NSString*)dirPath {
