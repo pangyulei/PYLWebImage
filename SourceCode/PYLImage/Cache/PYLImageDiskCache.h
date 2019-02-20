@@ -11,4 +11,5 @@
 @interface PYLImageDiskCache : NSObject
 - (void)saveImage:(UIImage *)image forKey:(NSString *)key;
 - (UIImage *)fetchImageForKey:(NSString *)key;
+- (BOOL)existImageForKey:(NSString *)key;
 @end

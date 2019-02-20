@@ -37,6 +37,10 @@
     return image;
 }
 
+- (BOOL)existImageForKey:(NSString *)key {
+    return [_cache objectForKey:key] != nil;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {

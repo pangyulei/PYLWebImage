@@ -36,21 +36,22 @@
     return d;
 }
 
-- (void)downloadImageURL:(NSURL *)url completion:(void (^)(UIImage *))cmpl {
+- (void)downloadImageURL:(NSURL *)url completion:(UIImage*(^)(UIImage *,BOOL fromCache))cmpl {
     if (!url.absoluteString.length || !cmpl) {
-        return;
-    }
-    
-    UIImage *image = [[PYLImageCache shared] fetchImageForKey:url.MD5];
-    if (image) {
-        cmpl(image);
         return;
     }
     
     __weak typeof(PYLImageDownloader) *weakself = self;
     dispatch_barrier_async(_concurrentQueue, ^{
-        __strong typeof(PYLImageDownloader) *strongself = weakself;
+        //缓存有的就别下了
+        if ([[PYLImageCache shared] existImageForKey:url.MD5]) {
+            UIImage *cacheImage = [[PYLImageCache shared] fetchImageForKey:url.MD5];
+            cmpl(cacheImage, YES);
+            return;
+        }
+        
         //已经入队的就别下了
+        __strong typeof(PYLImageDownloader) *strongself = weakself;
         if ([strongself.urlOperationMap objectForKey:url.MD5]) {
             return;
         }
@@ -61,8 +62,12 @@
          */
         
         PYLImageDownloadOperation *operation = [[PYLImageDownloadOperation alloc] initWithURL:url completion:^(UIImage *decompressedImage) {
-            [[PYLImageCache shared] saveImage:decompressedImage forKey:url.MD5];
-            cmpl(decompressedImage);
+            UIImage *imageToCache = cmpl(decompressedImage, NO);
+            if (imageToCache) {
+                [[PYLImageCache shared] saveImage:imageToCache forKey:url.MD5];
+            } else {
+                [[PYLImageCache shared] saveImage:decompressedImage forKey:url.MD5];
+            }
         }];
         [strongself.queue addOperation:operation];
         [strongself.urlOperationMap setObject:operation forKey:url.MD5];

@@ -74,4 +74,11 @@
     return image;
 }
 
+- (BOOL)existImageForKey:(NSString *)key {
+    if ([_mem existImageForKey:key]) {
+        return YES;
+    }
+    return [_disk existImageForKey:key];
+}
+
 @end

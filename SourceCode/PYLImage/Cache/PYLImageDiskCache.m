@@ -108,4 +108,9 @@
     return [documentPath stringByAppendingPathComponent:@"PYLImageDiskCache/Default"];
 }
 
+- (BOOL)existImageForKey:(NSString *)key {
+    NSString *filepath = [[self dirPath] stringByAppendingPathComponent:key];
+    return [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+}
+
 @end

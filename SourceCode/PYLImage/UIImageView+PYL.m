@@ -13,8 +13,8 @@
 
 @implementation UIImageView (PYL)
 
-- (void)pyl_setImageURL:(NSURL *)url placeholder:(UIImage *)placeholder {
-    if (!url.absoluteString.length) {
+- (void)pyl_setImageURL:(NSURL *)url placeholder:(UIImage *)placeholder completion:(UIImage*(^)(UIImage *image,BOOL fromCache))completion {
+    if (!url.absoluteString.length || !completion) {
         return;
     }
     
@@ -25,12 +25,8 @@
     }
     [self setPyl_lastImageURL:url];
     self.image = placeholder;
-    [[PYLImageDownloader shared] downloadImageURL:url completion:^(UIImage *decompressedImage) {
-        if (decompressedImage) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.image = decompressedImage;
-            });
-        }
+    [[PYLImageDownloader shared] downloadImageURL:url completion:^UIImage *(UIImage *decompressedImage, BOOL fromCache) {
+        return completion(decompressedImage,fromCache);
     }];
 }
 

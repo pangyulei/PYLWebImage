@@ -11,5 +11,5 @@
 @interface UIImage (PYL)
 
 - (UIImage*)decompress;
-
+- (UIImage *)imageByRoundCornerRadius:(CGFloat)radius;
 @end

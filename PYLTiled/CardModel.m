@@ -27,7 +27,6 @@
 }
 
 - (CardCellLayout *)layout {
-    //pang todo 优化布局缓存
     if (!_layout) {
         _layout = [[CardCellLayout alloc] initWithCardCellModel:self];
     }

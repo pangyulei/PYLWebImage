@@ -10,6 +10,6 @@
 
 @interface UIImageView (PYL)
 
-- (void)pyl_setImageURL:(NSURL *)url placeholder:(UIImage *)placeholder;
+- (void)pyl_setImageURL:(NSURL *)url placeholder:(UIImage *)placeholder completion:(UIImage*(^)(UIImage *image,BOOL fromCache))completion;
 
 @end

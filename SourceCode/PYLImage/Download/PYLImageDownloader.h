@@ -10,6 +10,7 @@
 @class UIImage;
 @interface PYLImageDownloader : NSObject
 + (instancetype)shared;
-- (void)downloadImageURL:(NSURL *)url completion:(void(^)(UIImage *decompressedImage))cmpl;
+//如果  completion 返回图，就缓存返回的图，否则缓存解压的图
+- (void)downloadImageURL:(NSURL *)url completion:(UIImage*(^)(UIImage *decompressedImage, BOOL fromCache))cmpl;
 - (void)cancelDownloadImageURL:(NSURL*)url;
 @end

@@ -32,10 +32,12 @@
     [self.view addSubview:_tb];
     _tb.delegate = self;
     _tb.dataSource = self;
+    _tb.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     [_tb registerClass:[CardCell class] forCellReuseIdentifier:@"cc"];
     _models = @[].mutableCopy;
-    PYLFPSLabel *label = [[PYLFPSLabel alloc] initWithFrame:CGRectMake(130, 10, 0, 0)];
-    [self.view addSubview:label];
+//    PYLFPSLabel *label = [[PYLFPSLabel alloc] initWithFrame:CGRectMake(130, 10, 0, 0)];
+//    [self.view addSubview:label];
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *path = [[NSBundle mainBundle] pathForResource:@"avatar_urls" ofType:@""];
