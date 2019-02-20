@@ -17,7 +17,6 @@
 
 @interface PYLImageDiskCache ()
 @property(nonatomic,assign) double currentBytes;
-//@property(nonatomic) NSMutableArray<NSString*> *lruKeys;//最近使用的都在最后面，0开始的是最近没用的
 @end
 
 @implementation PYLImageDiskCache
@@ -54,7 +53,8 @@
 - (void)clear {
     _maxBytes = 0;
     _currentBytes = 0;
-//    [_lruKeys removeAllObjects];
+    NSError *error;
+    NSAssert([[NSFileManager defaultManager] removeItemAtPath:[self dirPath] error:nil], error.description);
 }
 
 - (void)deleteUntilBytes:(double)bytes {
@@ -112,16 +112,12 @@
     NSError *error;
     NSAssert([data writeToFile:filepath options:NSDataWritingAtomic error:&error], error.localizedDescription);
     _currentBytes += image.pyl_bytes;
-//    [_lruKeys removeObject:key];
-//    [_lruKeys addObject:key];
 }
 
 - (UIImage *)fetchImageForKey:(NSString *)key {
     NSString *filepath = [[self dirPath] stringByAppendingPathComponent:key];
     NSData *data = [NSData dataWithContentsOfFile:filepath];
     UIImage *image = [UIImage imageWithData:data];
-//    [_lruKeys removeObject:key];
-//    [_lruKeys addObject:key];
     return image;
 }
 

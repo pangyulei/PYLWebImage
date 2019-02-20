@@ -23,7 +23,7 @@
     if (lastImageURL && ![lastImageURL.absoluteString isEqualToString:url.absoluteString]) {
         [[PYLImageDownloader shared] cancelDownloadImageURL:lastImageURL];
     }
-    
+    [self setPyl_lastImageURL:url];
     self.image = placeholder;
     [[PYLImageDownloader shared] downloadImageURL:url completion:^(UIImage *decompressedImage) {
         if (decompressedImage) {
