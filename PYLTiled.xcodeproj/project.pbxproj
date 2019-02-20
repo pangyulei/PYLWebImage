@@ -18,9 +18,14 @@
 		44F84C7F221B6CFC00F31EDC /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84C7E221B6CFC00F31EDC /* CardCell.m */; };
 		44F84CBD221BB12600F31EDC /* PYLFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */; };
 		44F84CBE221BB12600F31EDC /* CADisplayLink+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */; };
-		44F84CC1221BB46F00F31EDC /* UIImageView+Web.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CC0221BB46F00F31EDC /* UIImageView+Web.m */; };
+		44F84CC1221BB46F00F31EDC /* UIImageView+PYL.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CC0221BB46F00F31EDC /* UIImageView+PYL.m */; };
 		44FE9EA7221C171E00CD4176 /* PYLImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EA6221C171E00CD4176 /* PYLImageCache.m */; };
 		44FE9EAD221C370300CD4176 /* avatar_urls in Resources */ = {isa = PBXBuildFile; fileRef = 44FE9EAC221C370300CD4176 /* avatar_urls */; };
+		44FE9EB1221C3B0400CD4176 /* PYLImageMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EB0221C3B0400CD4176 /* PYLImageMemoryCache.m */; };
+		44FE9EB5221C3F4000CD4176 /* PYLImageDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EB4221C3F4000CD4176 /* PYLImageDiskCache.m */; };
+		44FE9EB9221C4B8F00CD4176 /* UIImage+PYL.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EB8221C4B8F00CD4176 /* UIImage+PYL.m */; };
+		44FE9EBC221CB44C00CD4176 /* PYLImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EBB221CB44C00CD4176 /* PYLImageDownloader.m */; };
+		44FE9EBF221CC1D600CD4176 /* PYLImageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FE9EBE221CC1D600CD4176 /* PYLImageDownloadOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,11 +49,21 @@
 		44F84CBA221BB12600F31EDC /* CADisplayLink+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CADisplayLink+Safe.h"; sourceTree = "<group>"; };
 		44F84CBB221BB12600F31EDC /* PYLFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYLFPSLabel.h; sourceTree = "<group>"; };
 		44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CADisplayLink+Safe.m"; sourceTree = "<group>"; };
-		44F84CBF221BB46F00F31EDC /* UIImageView+Web.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Web.h"; sourceTree = "<group>"; };
-		44F84CC0221BB46F00F31EDC /* UIImageView+Web.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Web.m"; sourceTree = "<group>"; };
+		44F84CBF221BB46F00F31EDC /* UIImageView+PYL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+PYL.h"; sourceTree = "<group>"; };
+		44F84CC0221BB46F00F31EDC /* UIImageView+PYL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+PYL.m"; sourceTree = "<group>"; };
 		44FE9EA5221C171E00CD4176 /* PYLImageCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYLImageCache.h; sourceTree = "<group>"; };
 		44FE9EA6221C171E00CD4176 /* PYLImageCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYLImageCache.m; sourceTree = "<group>"; };
 		44FE9EAC221C370300CD4176 /* avatar_urls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = avatar_urls; sourceTree = "<group>"; };
+		44FE9EAF221C3B0400CD4176 /* PYLImageMemoryCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYLImageMemoryCache.h; sourceTree = "<group>"; };
+		44FE9EB0221C3B0400CD4176 /* PYLImageMemoryCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYLImageMemoryCache.m; sourceTree = "<group>"; };
+		44FE9EB3221C3F4000CD4176 /* PYLImageDiskCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYLImageDiskCache.h; sourceTree = "<group>"; };
+		44FE9EB4221C3F4000CD4176 /* PYLImageDiskCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYLImageDiskCache.m; sourceTree = "<group>"; };
+		44FE9EB7221C4B8F00CD4176 /* UIImage+PYL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+PYL.h"; sourceTree = "<group>"; };
+		44FE9EB8221C4B8F00CD4176 /* UIImage+PYL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PYL.m"; sourceTree = "<group>"; };
+		44FE9EBA221CB44C00CD4176 /* PYLImageDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYLImageDownloader.h; sourceTree = "<group>"; };
+		44FE9EBB221CB44C00CD4176 /* PYLImageDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYLImageDownloader.m; sourceTree = "<group>"; };
+		44FE9EBD221CC1D600CD4176 /* PYLImageDownloadOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYLImageDownloadOperation.h; sourceTree = "<group>"; };
+		44FE9EBE221CC1D600CD4176 /* PYLImageDownloadOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYLImageDownloadOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +80,7 @@
 		4434601A221A2ED700F92DDE = {
 			isa = PBXGroup;
 			children = (
+				44FE9EAE221C3A8900CD4176 /* SourceCode */,
 				44346025221A2ED700F92DDE /* PYLTiled */,
 				44346024221A2ED700F92DDE /* Products */,
 			);
@@ -86,20 +102,12 @@
 				44346027221A2ED700F92DDE /* AppDelegate.m */,
 				44346029221A2ED700F92DDE /* ViewController.h */,
 				4434602A221A2ED700F92DDE /* ViewController.m */,
-				44FE9EA5221C171E00CD4176 /* PYLImageCache.h */,
-				44FE9EA6221C171E00CD4176 /* PYLImageCache.m */,
 				44F84C7D221B6CFC00F31EDC /* CardCell.h */,
 				44F84C7E221B6CFC00F31EDC /* CardCell.m */,
 				4474E83B221BBD3A00638ABA /* CardModel.h */,
 				4474E83C221BBD3A00638ABA /* CardModel.m */,
 				44E94CB2221BBE870083BD44 /* CardCellLayout.h */,
 				44E94CB3221BBE870083BD44 /* CardCellLayout.m */,
-				44F84CBA221BB12600F31EDC /* CADisplayLink+Safe.h */,
-				44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */,
-				44F84CBB221BB12600F31EDC /* PYLFPSLabel.h */,
-				44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */,
-				44F84CBF221BB46F00F31EDC /* UIImageView+Web.h */,
-				44F84CC0221BB46F00F31EDC /* UIImageView+Web.m */,
 				4434602C221A2ED700F92DDE /* Main.storyboard */,
 				4434602F221A2ED800F92DDE /* Assets.xcassets */,
 				44346031221A2ED800F92DDE /* LaunchScreen.storyboard */,
@@ -107,6 +115,47 @@
 				44346035221A2ED800F92DDE /* main.m */,
 			);
 			path = PYLTiled;
+			sourceTree = "<group>";
+		};
+		44FE9EAE221C3A8900CD4176 /* SourceCode */ = {
+			isa = PBXGroup;
+			children = (
+				44FE9EB2221C3B0F00CD4176 /* PYLImage */,
+				44F84CBA221BB12600F31EDC /* CADisplayLink+Safe.h */,
+				44F84CBC221BB12600F31EDC /* CADisplayLink+Safe.m */,
+				44F84CBB221BB12600F31EDC /* PYLFPSLabel.h */,
+				44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */,
+			);
+			path = SourceCode;
+			sourceTree = "<group>";
+		};
+		44FE9EB2221C3B0F00CD4176 /* PYLImage */ = {
+			isa = PBXGroup;
+			children = (
+				44FE9EBA221CB44C00CD4176 /* PYLImageDownloader.h */,
+				44FE9EBB221CB44C00CD4176 /* PYLImageDownloader.m */,
+				44FE9EBD221CC1D600CD4176 /* PYLImageDownloadOperation.h */,
+				44FE9EBE221CC1D600CD4176 /* PYLImageDownloadOperation.m */,
+				44FE9EC0221CCF9900CD4176 /* Cache */,
+				44F84CBF221BB46F00F31EDC /* UIImageView+PYL.h */,
+				44F84CC0221BB46F00F31EDC /* UIImageView+PYL.m */,
+				44FE9EB7221C4B8F00CD4176 /* UIImage+PYL.h */,
+				44FE9EB8221C4B8F00CD4176 /* UIImage+PYL.m */,
+			);
+			path = PYLImage;
+			sourceTree = "<group>";
+		};
+		44FE9EC0221CCF9900CD4176 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				44FE9EA5221C171E00CD4176 /* PYLImageCache.h */,
+				44FE9EA6221C171E00CD4176 /* PYLImageCache.m */,
+				44FE9EAF221C3B0400CD4176 /* PYLImageMemoryCache.h */,
+				44FE9EB0221C3B0400CD4176 /* PYLImageMemoryCache.m */,
+				44FE9EB3221C3F4000CD4176 /* PYLImageDiskCache.h */,
+				44FE9EB4221C3F4000CD4176 /* PYLImageDiskCache.m */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,14 +229,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44FE9EB9221C4B8F00CD4176 /* UIImage+PYL.m in Sources */,
 				44F84CBD221BB12600F31EDC /* PYLFPSLabel.m in Sources */,
 				4474E83D221BBD3A00638ABA /* CardModel.m in Sources */,
 				44FE9EA7221C171E00CD4176 /* PYLImageCache.m in Sources */,
 				4434602B221A2ED700F92DDE /* ViewController.m in Sources */,
 				44E94CB4221BBE870083BD44 /* CardCellLayout.m in Sources */,
+				44FE9EBF221CC1D600CD4176 /* PYLImageDownloadOperation.m in Sources */,
+				44FE9EB5221C3F4000CD4176 /* PYLImageDiskCache.m in Sources */,
 				44346036221A2ED800F92DDE /* main.m in Sources */,
+				44FE9EB1221C3B0400CD4176 /* PYLImageMemoryCache.m in Sources */,
 				44F84CBE221BB12600F31EDC /* CADisplayLink+Safe.m in Sources */,
-				44F84CC1221BB46F00F31EDC /* UIImageView+Web.m in Sources */,
+				44FE9EBC221CB44C00CD4176 /* PYLImageDownloader.m in Sources */,
+				44F84CC1221BB46F00F31EDC /* UIImageView+PYL.m in Sources */,
 				44346028221A2ED700F92DDE /* AppDelegate.m in Sources */,
 				44F84C7F221B6CFC00F31EDC /* CardCell.m in Sources */,
 			);

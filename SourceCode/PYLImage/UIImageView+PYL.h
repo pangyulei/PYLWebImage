@@ -1,5 +1,5 @@
 //
-//  UIImageView+Web.h
+//  UIImageView+PYL.h
 //  PYLTiled
 //
 //  Created by yulei pang on 2019/2/19.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImageView (Web)
+@interface UIImageView (PYL)
 
-- (void)setWithUrl:(NSURL *)url;
+- (void)pyl_setImageURL:(NSURL *)url placeholder:(UIImage *)placeholder;
 
 @end

@@ -7,11 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
-
+@class UIImage;
 @interface PYLImageCache : NSObject
-
++ (PYLImageCache *)shared;
+- (void)saveImage:(UIImage *)image forKey:(NSString *)key;
+- (UIImage *)fetchImageForKey:(NSString *)key;
 @end
-
-NS_ASSUME_NONNULL_END

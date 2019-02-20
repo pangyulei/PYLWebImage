@@ -12,6 +12,7 @@
 #import "CardModel.h"
 #import "CardCellLayout.h"
 #import <pthread.h>
+#import "PYLImageDownloader.h"
 
 @interface ViewController () <UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic) UITableView *tb;
@@ -22,6 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    return [self fetchAvatarUrls];
     
     
     _tb = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
@@ -50,59 +53,6 @@
     });
 }
 
-- (void)fetchAvatarUrls {
-    dispatch_semaphore_t download_sema = dispatch_semaphore_create(10); //同时下载 N 个
-    pthread_mutex_t lock;
-    pthread_mutex_init(&lock, NULL);
-
-    double c = 1000;
-    NSMutableDictionary *urls = @{}.mutableCopy;
-    NSURLSessionConfiguration * conf = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:conf];
-    while (urls.count < c) {
-        dispatch_semaphore_wait(download_sema, DISPATCH_TIME_FOREVER);
-        [[session dataTaskWithURL:[NSURL URLWithString:@"https://source.unsplash.com/random/50x50"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            dispatch_semaphore_signal(download_sema);
-
-            NSString *str = response.URL.absoluteString;
-            if (!str.length || error) {
-                NSLog(@"download error: %@", error);
-
-            } else if (urls[str]) {
-                //重复的不算
-            } else {
-                pthread_mutex_lock(&lock);
-                if (urls.count < c) {
-                    urls[str] = @"";
-                    NSLog(@"%ld %@", urls.count, str);
-                }
-                pthread_mutex_unlock(&lock);
-            }
-
-        }] resume];
-    }
-    pthread_mutex_destroy(&lock);
-
-    NSMutableArray *a = @[].mutableCopy;
-    for (int i = 0;i<urls.allKeys.count;i++) {
-        [a addObject:urls.allKeys[i]];
-    }
-    
-    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *filePath = [documentPath stringByAppendingPathComponent:@"avatar_urls"];
-    NSLog(@"%@", filePath);
-    NSError *e;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:a options:NSJSONWritingPrettyPrinted error:&e];
-    NSAssert(!e, @" json -> data 失败");
-    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-        BOOL r = [[NSFileManager defaultManager] createFileAtPath:filePath contents:data attributes:nil];
-        NSAssert(r, @"写硬盘失败");
-    } else {
-        [data writeToFile:filePath options:NSDataWritingAtomic error:&e];
-        NSAssert(!e, @"写硬盘失败");
-    }
-    NSLog(@"写硬盘成功");
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _models.count;
@@ -118,5 +68,64 @@
     CardModel *model = _models[indexPath.item];
     return model.layout.cellHeight;
 }
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+    CardModel *model = _models[indexPath.item];
+    [[PYLImageDownloader shared] cancelDownloadImageURL:model.url];
+}
+
+//- (void)fetchAvatarUrls {
+//    dispatch_semaphore_t download_sema = dispatch_semaphore_create(10); //同时下载 N 个
+//    pthread_mutex_t lock;
+//    pthread_mutex_init(&lock, NULL);
+//
+//    double c = 10000;
+//    NSMutableDictionary *urls = @{}.mutableCopy;
+//    NSURLSessionConfiguration * conf = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:conf];
+//    while (urls.count < c) {
+//        dispatch_semaphore_wait(download_sema, DISPATCH_TIME_FOREVER);
+//        [[session dataTaskWithURL:[NSURL URLWithString:@"https://source.unsplash.com/random/80x80"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//            dispatch_semaphore_signal(download_sema);
+//
+//            NSString *str = response.URL.absoluteString;
+//            if (!str.length || error) {
+//                NSLog(@"download error: %@", error);
+//
+//            } else if (urls[str]) {
+//                //重复的不算
+//            } else {
+//                pthread_mutex_lock(&lock);
+//                if (urls.count < c) {
+//                    urls[str] = @"";
+//                    NSLog(@"%ld %@", urls.count, str);
+//                }
+//                pthread_mutex_unlock(&lock);
+//            }
+//
+//        }] resume];
+//    }
+//    pthread_mutex_destroy(&lock);
+//
+//    NSMutableArray *a = @[].mutableCopy;
+//    for (int i = 0;i<urls.allKeys.count;i++) {
+//        [a addObject:urls.allKeys[i]];
+//    }
+//
+//    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//    NSString *filePath = [documentPath stringByAppendingPathComponent:@"avatar_urls"];
+//    NSLog(@"%@", filePath);
+//    NSError *e;
+//    NSData *data = [NSJSONSerialization dataWithJSONObject:a options:NSJSONWritingPrettyPrinted error:&e];
+//    NSAssert(!e, @" json -> data 失败");
+//    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+//        BOOL r = [[NSFileManager defaultManager] createFileAtPath:filePath contents:data attributes:nil];
+//        NSAssert(r, @"写硬盘失败");
+//    } else {
+//        [data writeToFile:filePath options:NSDataWritingAtomic error:&e];
+//        NSAssert(!e, @"写硬盘失败");
+//    }
+//    NSLog(@"写硬盘成功");
+//}
 
 @end

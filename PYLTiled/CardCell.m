@@ -7,7 +7,7 @@
 //
 
 #import "CardCell.h"
-#import "UIImageView+Web.h"
+#import "UIImageView+PYL.h"
 #import "CardModel.h"
 #import "CardCellLayout.h"
 
@@ -25,7 +25,7 @@
     //pang todo 优化圆角
     _avatar.layer.cornerRadius = 25;
     _avatar.clipsToBounds = YES;
-    _avatar.backgroundColor = [UIColor redColor];
+    _avatar.backgroundColor = [UIColor grayColor];
     [self.contentView addSubview:_avatar];
     
     _label = [UILabel new];
@@ -45,7 +45,7 @@
 //}
 
 - (void)configWithModel:(CardModel *)model {
-    [_avatar setWithUrl:model.url];
+    [_avatar pyl_setImageURL:model.url placeholder:nil];
     _avatar.frame = CGRectMake(16, 16, 50, 50);
     _label.frame = CGRectMake(82, 16, model.layout.textWidth, model.layout.textHeight);
     _label.text = model.text;
