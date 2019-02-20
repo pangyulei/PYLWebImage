@@ -10,6 +10,5 @@
 @class UIImage;
 @interface PYLImageMemoryCache : NSObject
 - (void)saveImage:(UIImage *)image forKey:(NSString *)key;
-- (void)clear;
 - (UIImage *)fetchImageForKey:(NSString *)key;
 @end

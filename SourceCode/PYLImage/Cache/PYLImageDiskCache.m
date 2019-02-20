@@ -23,18 +23,19 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _maxBytes = DefaultMaxSize;
-        NSFileManager *fm = [NSFileManager defaultManager];
-        NSString *dirPath = [self dirPath];
-        if (![fm fileExistsAtPath:dirPath]) {
-            NSError *e;
-            if (![fm createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:&e]) {
-                NSAssert(false, [e description]);
-            }
-        }
+        [self createDirifNeed];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willTerminate) name:UIApplicationWillTerminateNotification object:nil];
     }
     return self;
+}
+
+- (void)createDirifNeed {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *dirPath = [self dirPath];
+    if (![fm fileExistsAtPath:dirPath]) {
+        NSError *e;
+        NSAssert([fm createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:&e], [e description]);
+    }
 }
 
 - (void)dealloc {
@@ -42,25 +43,10 @@
 }
 
 - (void)willTerminate {
-    [self deleteUntilBytes:_maxBytes];
-}
-
-- (void)clear {
-    _maxBytes = 0;
-    NSError *error;
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSString *dirPath = [self dirPath];
-    if ([fm fileExistsAtPath:dirPath]) {
-        NSAssert([fm removeItemAtPath:[self dirPath] error:nil], error.description);
-        NSAssert([fm createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:&error], error.description);
-    }
+    [self deleteUntilBytes:DefaultMaxSize];
 }
 
 - (void)deleteUntilBytes:(double)bytes {
-    if (bytes <= 0) {
-        [self clear];
-        return;
-    }
     //使用 LRU 算法
     NSURL *dir = [NSURL URLWithString:[self dirPath]];
     NSArray *resourceKeys = @[NSURLTotalFileAllocatedSizeKey,NSURLContentAccessDateKey];
@@ -97,11 +83,6 @@
         NSAssert([[NSFileManager defaultManager] removeItemAtPath:filepath error:&error], [error description]);
         currentBytes -= [dict[NSURLTotalFileAllocatedSizeKey] doubleValue];
     }
-}
-
-- (void)setMaxBytes:(double)maxBytes {
-    _maxBytes = maxBytes;
-    [self deleteUntilBytes:maxBytes];
 }
 
 - (void)saveImage:(UIImage *)image forKey:(NSString *)key {
