@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PYLCancelableOperation.h"
 @class UIImage;
-@interface PYLImageDownloadOperation : NSOperation
+@interface PYLImageDownloadOperation : PYLCancelableOperation
 - (instancetype)initWithURL:(NSURL *)url completion:(void(^)(UIImage *decompressedImage))cmpl;
 @end

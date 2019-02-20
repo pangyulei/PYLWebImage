@@ -58,12 +58,14 @@
     if (!key.length) {
         return nil;
     }
-    UIImage *image = [_mem fetchImageForKey:key];
-    if (image) {
-        NSLog(@"从内存读取图片成功 %@", key);
-        return image;
-    }
-    return nil;
+    __block UIImage *image;
+    dispatch_sync(_queue, ^{
+        image = [self.mem fetchImageForKey:key];
+        if (image) {
+            NSLog(@"从内存读取图片成功 %@", key);
+        }
+    });
+    return image;
 }
 
 @end

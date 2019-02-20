@@ -11,7 +11,7 @@
 
 @interface PYLImageDownloader () <NSMutableCopying, NSCopying>
 @property (nonatomic) NSOperationQueue *queue;
-@property (nonatomic) NSMutableDictionary<NSString*,PYLImageDownloadOperation*>*urlOperationMap;
+@property (nonatomic) NSMapTable<NSString*,PYLImageDownloadOperation*>*urlOperationMap;
 @property (nonatomic) dispatch_queue_t concurrentQueue;
 @end
 
@@ -28,7 +28,7 @@
         d = [super allocWithZone:zone];
         d.queue = [NSOperationQueue new];
         d.queue.maxConcurrentOperationCount = 10;
-        d.urlOperationMap = @{}.mutableCopy;
+        d.urlOperationMap = [NSMapTable strongToWeakObjectsMapTable];
         d.concurrentQueue = dispatch_queue_create("q", DISPATCH_QUEUE_CONCURRENT);
     });
     return d;
@@ -47,24 +47,18 @@
          这里是为了给 urlOperationMap 上锁
          */
         
-        PYLImageDownloadOperation *operation = [[PYLImageDownloadOperation alloc] initWithURL:url completion:^(UIImage *decompressedImage) {
-            strongself.urlOperationMap[url.absoluteString] = nil;
-            cmpl(decompressedImage);
-        }];
-        [self.queue addOperation:operation];
-        self.urlOperationMap[url.absoluteString] = operation;
+        PYLImageDownloadOperation *operation = [[PYLImageDownloadOperation alloc] initWithURL:url completion:cmpl];
+        [strongself.queue addOperation:operation];
+        [strongself.urlOperationMap setObject:operation forKey:url.absoluteString];
     });
 }
 
 - (void)cancelDownloadImageURL:(NSURL*)url {
     __block PYLImageDownloadOperation *operation;
     dispatch_sync(_concurrentQueue, ^{
-        operation = self.urlOperationMap[url.absoluteString];
+        operation = [self.urlOperationMap objectForKey:url.absoluteString];
     });
     [operation cancel];
-    dispatch_barrier_async(_concurrentQueue, ^{
-        self.urlOperationMap[url.absoluteString] = nil;
-    });
 }
 
 - (id)mutableCopyWithZone:(NSZone *)zone {
