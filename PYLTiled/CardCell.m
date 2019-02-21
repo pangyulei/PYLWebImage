@@ -11,10 +11,13 @@
 #import "CardModel.h"
 #import "CardCellLayout.h"
 #import "UIImage+PYL.h"
+#import "CardCellLayer.h"
 
 @interface CardCell ()
 @property (nonatomic) UIImageView *avatar;
+@property (nonatomic) UIImageView *xxxx;
 @property (nonatomic) UILabel *label;
+@property (nonatomic) CALayer *shadowLayer;
 @end
 
 @implementation CardCell
@@ -22,26 +25,42 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     self.contentView.backgroundColor = [UIColor whiteColor];
+    
+    
+    _shadowLayer = [CALayer layer];
+    _shadowLayer.shadowRadius = 5;
+    _shadowLayer.shadowOpacity = 1;
+    [self.contentView.layer addSublayer:_shadowLayer];
+    
+    
     _avatar = [UIImageView new];
     _avatar.contentMode = UIViewContentModeScaleToFill;
     _avatar.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:_avatar];
     
+   
+    
     _label = [UILabel new];
-    //pang todo 优化阴影
-//    _label.layer.shadowRadius = 5;
-//    _label.layer.shadowOffset = CGSizeMake(0, 1);
-//    _label.layer.shadowOpacity = 1;
     _label.numberOfLines = 0;
     _label.font = textfont;
+    _label.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:_label];
     
+    _xxxx = [UIImageView new];
+    _xxxx.contentMode = UIViewContentModeScaleToFill;
+    _xxxx.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:_xxxx];
+
     return self;
 }
-//pang todo 优化异步绘制
-//- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
-//
-//}
+
++ (Class)layerClass {
+    return [CardCellLayer class];
+}
+
+- (void)asyncDraw:(UIImage*)image {
+    _xxxx.image = image;
+}
 
 - (void)configWithModel:(CardModel *)model {
     __weak typeof(self) weakself = self;
@@ -61,8 +80,12 @@
     }];
     
     _avatar.frame = CGRectMake(16, 16, 50, 50);
+    _xxxx.frame = CGRectMake(82, 16, 50, 50);
     _label.frame = CGRectMake(82, 16, model.layout.textWidth, model.layout.textHeight);
     _label.text = model.text;
+    _shadowLayer.shadowPath = [UIBezierPath bezierPathWithRect:_label.bounds].CGPath;
+    _shadowLayer.frame = _label.frame;
+    [self.layer setNeedsDisplay];
 }
 
 @end

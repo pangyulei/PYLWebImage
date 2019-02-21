@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4422BDB0221E400F0045D14B /* CardCellDrawOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4422BDAF221E400F0045D14B /* CardCellDrawOperation.m */; };
 		44346028221A2ED700F92DDE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44346027221A2ED700F92DDE /* AppDelegate.m */; };
 		4434602B221A2ED700F92DDE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4434602A221A2ED700F92DDE /* ViewController.m */; };
 		4434602E221A2ED700F92DDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4434602C221A2ED700F92DDE /* Main.storyboard */; };
@@ -14,6 +15,7 @@
 		44346033221A2ED800F92DDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44346031221A2ED800F92DDE /* LaunchScreen.storyboard */; };
 		44346036221A2ED800F92DDE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 44346035221A2ED800F92DDE /* main.m */; };
 		4474E83D221BBD3A00638ABA /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474E83C221BBD3A00638ABA /* CardModel.m */; };
+		4480221F221E3C9100ECC2C4 /* CardCellLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4480221E221E3C9100ECC2C4 /* CardCellLayer.m */; };
 		44E94CB4221BBE870083BD44 /* CardCellLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E94CB3221BBE870083BD44 /* CardCellLayout.m */; };
 		44F84C7F221B6CFC00F31EDC /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84C7E221B6CFC00F31EDC /* CardCell.m */; };
 		44F84CBD221BB12600F31EDC /* PYLFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F84CB9221BB12500F31EDC /* PYLFPSLabel.m */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4422BDAE221E400F0045D14B /* CardCellDrawOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardCellDrawOperation.h; sourceTree = "<group>"; };
+		4422BDAF221E400F0045D14B /* CardCellDrawOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardCellDrawOperation.m; sourceTree = "<group>"; };
 		44346023221A2ED700F92DDE /* PYLTiled.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PYLTiled.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44346026221A2ED700F92DDE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		44346027221A2ED700F92DDE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -44,6 +48,8 @@
 		44346035221A2ED800F92DDE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4474E83B221BBD3A00638ABA /* CardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardModel.h; sourceTree = "<group>"; };
 		4474E83C221BBD3A00638ABA /* CardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardModel.m; sourceTree = "<group>"; };
+		4480221D221E3C9100ECC2C4 /* CardCellLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardCellLayer.h; sourceTree = "<group>"; };
+		4480221E221E3C9100ECC2C4 /* CardCellLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardCellLayer.m; sourceTree = "<group>"; };
 		44E94CB2221BBE870083BD44 /* CardCellLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardCellLayout.h; sourceTree = "<group>"; };
 		44E94CB3221BBE870083BD44 /* CardCellLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardCellLayout.m; sourceTree = "<group>"; };
 		44F84C7D221B6CFC00F31EDC /* CardCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardCell.h; sourceTree = "<group>"; };
@@ -113,6 +119,10 @@
 				4434602A221A2ED700F92DDE /* ViewController.m */,
 				44F84C7D221B6CFC00F31EDC /* CardCell.h */,
 				44F84C7E221B6CFC00F31EDC /* CardCell.m */,
+				4480221D221E3C9100ECC2C4 /* CardCellLayer.h */,
+				4480221E221E3C9100ECC2C4 /* CardCellLayer.m */,
+				4422BDAE221E400F0045D14B /* CardCellDrawOperation.h */,
+				4422BDAF221E400F0045D14B /* CardCellDrawOperation.m */,
 				4474E83B221BBD3A00638ABA /* CardModel.h */,
 				4474E83C221BBD3A00638ABA /* CardModel.m */,
 				44E94CB2221BBE870083BD44 /* CardCellLayout.h */,
@@ -263,6 +273,7 @@
 				44FE9EB9221C4B8F00CD4176 /* UIImage+PYL.m in Sources */,
 				44F84CBD221BB12600F31EDC /* PYLFPSLabel.m in Sources */,
 				4474E83D221BBD3A00638ABA /* CardModel.m in Sources */,
+				4422BDB0221E400F0045D14B /* CardCellDrawOperation.m in Sources */,
 				44FE9ECB221D4B3C00CD4176 /* NSURL+MD5.m in Sources */,
 				44FE9EC4221CD2A800CD4176 /* PYLCancelableOperation.m in Sources */,
 				44FE9EC8221D477E00CD4176 /* NSString+MD5.m in Sources */,
@@ -270,6 +281,7 @@
 				4434602B221A2ED700F92DDE /* ViewController.m in Sources */,
 				44E94CB4221BBE870083BD44 /* CardCellLayout.m in Sources */,
 				44FE9EBF221CC1D600CD4176 /* PYLImageDownloadOperation.m in Sources */,
+				4480221F221E3C9100ECC2C4 /* CardCellLayer.m in Sources */,
 				44FE9EB5221C3F4000CD4176 /* PYLImageDiskCache.m in Sources */,
 				44346036221A2ED800F92DDE /* main.m in Sources */,
 				44FE9EB1221C3B0400CD4176 /* PYLImageMemoryCache.m in Sources */,
